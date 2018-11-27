@@ -42,6 +42,7 @@ export default class Feed extends Component {
             id:      getUniqueID(),
             created: moment.utc(),
             comment,
+            likes:   [],
         };
 
         await delay(1200);
@@ -54,7 +55,7 @@ export default class Feed extends Component {
 
     async _likePost (id) {
         const { currentUserFirstName, currentUserLastName } = this.props;
-        //console.log('FEED - ', this.props);
+        
         this._setPostsFetchingState(true);
 
         await delay(1200);
