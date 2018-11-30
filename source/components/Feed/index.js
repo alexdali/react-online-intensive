@@ -13,15 +13,6 @@ import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
 
 export default class Feed extends Component {
-    constructor () {
-        super();
-
-        this._createPost = this._createPost.bind(this);
-        this._setPostsFetchingState = this._setPostsFetchingState.bind(this);
-        this._likePost = this._likePost.bind(this);
-        this._removePost = this._removePost.bind(this);
-    }
-
     state = {
         // posts: [
         //     { id: '123', comment: 'Hi there', created: 1526825071433, likes: [] },
@@ -34,13 +25,13 @@ export default class Feed extends Component {
         isSpinning: false,
     };
 
-    _setPostsFetchingState (state) {
+    _setPostsFetchingState = (state) => {
         this.setState({
             isSpinning: state,
         });
     }
 
-    async _createPost (comment) {
+    _createPost = async (comment) => {
         this._setPostsFetchingState(true);
 
         const post = {
@@ -58,7 +49,7 @@ export default class Feed extends Component {
         }));
     }
 
-    async _likePost (id) {
+    _likePost = async (id) => {
         const { currentUserFirstName, currentUserLastName } = this.props;
         const { posts } = this.state;
 
@@ -89,17 +80,17 @@ export default class Feed extends Component {
         });
     }
 
-    async _removePost (id) {
+    _removePost = async (id) => {
         const { posts } = this.state;
 
         this._setPostsFetchingState(true);
 
         await delay(1200);
 
-        const updatePosts = posts.filter((post) => post.id !== id);
+        //const updatePosts = posts.filter((post) => post.id !== id);
 
         this.setState({
-            posts:           updatePosts,
+            posts:           posts.filter((post) => post.id !== id),
             isSpinning: false,
         });
     }
