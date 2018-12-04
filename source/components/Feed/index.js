@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import moment from 'moment';
 
 //Instruments
 import { withProfile } from 'components/HOC/withProfile';
@@ -13,20 +12,24 @@ import Spinner from 'components/Spinner';
 // Instruments
 import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
+import { api, TOKEN } from 'config/api';
+import { type } from 'os';
 
 @withProfile
 export default class Feed extends Component {
     state = {
-        // posts: [
-        //     { id: '123', comment: 'Hi there', created: 1526825071433, likes: [] },
-        //     { id: '456', comment: 'Hi there again', created: 1526825079433, likes: [] },
-        // ],
-        posts: [
-            { id: '123', comment: 'Hi there', created: {}, likes: [] },
-            { id: '456', comment: 'Hi there again', created: {}, likes: [] },
-        ],
+        posts: [],
         isSpinning: false,
     };
+
+    componentDidMount () {
+        this._fetchPosts();
+        this.refetch = setInterval(this._fetchPosts, 1000);
+    }
+
+    componentWillMount () {
+        clearInterval (this.refetch);
+    }
 
     _setPostsFetchingState = (state) => {
         this.setState({
@@ -34,17 +37,34 @@ export default class Feed extends Component {
         });
     }
 
+    _fetchPosts = async () => {
+        this._setPostsFetchingState(true);
+
+        const response = await fetch(api, {
+            method: 'GET',
+        });
+
+        const { data: posts } = await response.json();
+
+        this.setState({
+            posts,
+            isSpinning: false,
+        });
+    };
+
     _createPost = async (comment) => {
         this._setPostsFetchingState(true);
 
-        const post = {
-            id:      getUniqueID(),
-            created: moment.utc(),
-            comment,
-            likes:   [],
-        };
+        const response = await fetch(api, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: TOKEN,
+            },
+            body: JSON.stringify({ comment }),
+        });
 
-        await delay(1200);
+        const { data: post } = await response.json();
 
         this.setState(({ posts }) => ({
             posts:           [ post, ...posts ],
@@ -53,49 +73,39 @@ export default class Feed extends Component {
     }
 
     _likePost = async (id) => {
-        const { currentUserFirstName, currentUserLastName } = this.props;
-        const { posts } = this.state;
-
         this._setPostsFetchingState(true);
 
-        await delay(1200);
-
-        const newPosts = posts.map((post) => {
-            if (post.id === id) {
-                return {
-                    ...post,
-                    likes: [
-                        {
-                            id:        getUniqueID(),
-                            firstName: currentUserFirstName,
-                            lastName:  currentUserLastName,
-                        },
-                    ],
-                };
-            }
-
-            return post;
+        const response = await fetch(`${api}/${id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: TOKEN,
+            },
         });
 
-        this.setState({
-            posts:           newPosts,
+        const { data: likedPost } = await response.json();
+
+        this.setState(({ posts }) => ({
+            posts: posts.map(
+                (post) => post.id === likedPost.id ? likedPost : post
+            ),
             isSpinning: false,
-        });
+        }));
     }
 
     _removePost = async (id) => {
-        const { posts } = this.state;
-
         this._setPostsFetchingState(true);
 
-        await delay(1200);
-
-        //const updatePosts = posts.filter((post) => post.id !== id);
-
-        this.setState({
-            posts:           posts.filter((post) => post.id !== id),
-            isSpinning: false,
+        await fetch(`${api}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: TOKEN,
+            },
         });
+
+        this.setState(({ posts }) => ({
+            posts:      posts.filter((post) => post.id !== id),
+            isSpinning: false,
+        }));
     }
 
     render() {
