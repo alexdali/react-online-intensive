@@ -55,7 +55,7 @@ export default class Post extends Component {
                 {cross}
                 <img src = { avatar } />
                 <a>{ firstName } { lastName }</a>
-                <time>{moment(created).format('MMMM D h:mm:ss a')}</time>
+                <time>{moment.unix(created).format('MMMM D h:mm:ss a')}</time>
                 <p>{ comment }</p>
                 <Like
                     _likePost = { _likePost }
