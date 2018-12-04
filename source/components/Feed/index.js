@@ -4,6 +4,7 @@ import moment from 'moment';
 
 //Instruments
 import { withProfile } from 'components/HOC/withProfile';
+import Catcher from 'components/Catcher';
 import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
@@ -102,12 +103,13 @@ export default class Feed extends Component {
 
         const postsJSX = posts.map((post) => {
             return (
-                <Post
-                    key = { post.id }
-                    { ...post }
-                    _likePost = { this._likePost }
-                    _removePost = { this._removePost }
-                />
+                <Catcher key = { post.id }>
+                    <Post
+                        { ...post }
+                        _likePost = { this._likePost }
+                        _removePost = { this._removePost }
+                    />
+                </Catcher>
             );
         });
 
