@@ -62,7 +62,7 @@ export default class Feed extends Component {
             ) {
                 this.setState(({ posts }) => ({
                     posts: posts.map((post) => {
-                        post.id === likedPost.id ? likedPost : post; 
+                        return post.id === likedPost.id ? likedPost : post; 
                     }),
                 }));
             }
