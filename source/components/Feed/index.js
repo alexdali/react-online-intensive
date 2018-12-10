@@ -160,20 +160,25 @@ export default class Feed extends Component {
             postman,
             1,
             { opacity: 0, x: 250 },
-            { 
-                opacity: 1, x: 0,
-                onComplete: () => (
-                    fromTo(
-                        postman,
-                        4,
-                        { opacity: 1 },
-                        { 
-                            opacity: 1,
-                            onComplete: () => fromTo(postman, 1, { opacity: 1, x: 0 }, { opacity: 0, x: 200 } ) 
-                        } 
-                    )                    
-                )
-            },
+            { opacity: 1, x: 0 },
+        );
+    };
+
+    _animatePostmanEntering = (postman) => {
+        fromTo(
+            postman,
+            4,
+            { opacity: 1 },
+            { opacity: 1 }
+        );
+    };
+
+    _animatePostmanEntered = (postman) => {
+        fromTo(
+            postman,
+            1,
+            { opacity: 1, x: 0 },
+            { opacity: 0, x: 250 }
         );
     };
 
@@ -216,8 +221,15 @@ export default class Feed extends Component {
                     <Transition
                         appear
                         in
+<<<<<<< HEAD
                         timeout = { 1000 }
                         onEnter = { this._animatePostmanEnter}>
+=======
+                        timeout = { 6000 }
+                        onEnter = { this._animatePostmanEnter}
+                        onEntered = { this._animatePostmanEntering}
+                        onEntered = { this._animatePostmanEntered}>
+>>>>>>> react-online-lesson-9_2
                         <Postman />
                     </Transition>
                     {postsJSX}
