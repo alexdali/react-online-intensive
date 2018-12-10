@@ -200,20 +200,21 @@ export default class Feed extends Component {
                     classNames = { {
                         enter:       Styles.postInStart,
                         enterActive: Styles.postInEnd,
-                        exit:       Styles.postOutStart,
-                        exitActive: Styles.postOutEnd,
+                        exit:        Styles.postOutStart,
+                        exitActive:  Styles.postOutEnd,
                     } }
                     key = { post.id }
                     timeout = { {
                         enter: 500,
                         exit: 400,
-                    } }>
+                    } }
+                >
                     <Catcher>
-                    <Post
-                        { ...post }
-                        _likePost = { this._likePost }
-                        _removePost = { this._removePost }
-                    />
+                        <Post
+                            { ...post }
+                            _likePost = { this._likePost }
+                            _removePost = { this._removePost }
+                        />
                     </Catcher>
                 </CSSTransition>
             );
