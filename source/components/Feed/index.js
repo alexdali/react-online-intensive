@@ -235,15 +235,10 @@ export default class Feed extends Component {
                     <Transition
                         appear
                         in
-<<<<<<< HEAD
-                        timeout = { 1000 }
-                        onEnter = { this._animatePostmanEnter}>
-=======
                         timeout = { 6000 }
                         onEnter = { this._animatePostmanEnter}
                         onEntered = { this._animatePostmanEntering}
                         onEntered = { this._animatePostmanEntered}>
->>>>>>> react-online-lesson-9_2
                         <Postman />
                     </Transition>
                     <TransitionGroup>{postsJSX}</TransitionGroup>
