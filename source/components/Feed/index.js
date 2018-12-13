@@ -237,8 +237,8 @@ class Feed extends Component {
                         in
                         timeout = { 6000 }
                         onEnter = { this._animatePostmanEnter }
-                        onEntered = { this._animatePostmanEntered }>
-                        onEntering = { this._animatePostmanEntering }
+                        onEntered = { this._animatePostmanEntered }
+                        onEntering = { this._animatePostmanEntering }>
                         <Postman />
                     </Transition>
                     <Counter count = { postsJSX.length } />
