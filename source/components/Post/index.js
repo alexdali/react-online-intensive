@@ -11,7 +11,7 @@ import Like from 'components/Like';
 import Styles from './styles.m.css';
 
 @withProfile
-export default class Post extends Component {
+class Post extends Component {
     static propTypes = {
         _likePost:   func.isRequired,
         _removePost: func.isRequired,
@@ -30,14 +30,18 @@ export default class Post extends Component {
     _getCross = () => {
         const { firstName, lastName, currentUserFirstName, currentUserLastName } = this.props;
 
-        return `${firstName} ${lastName}` ===
-            `${currentUserFirstName} ${currentUserLastName}` ? (
-             <span className = { Styles.cross } onClick = { this._removePost }></span>
+        return `${firstName} ${lastName}`
+        === `${currentUserFirstName} ${currentUserLastName}`
+            ? (
+                <span
+                    className = { Styles.cross }
+                    onClick = { this._removePost }>
+                </span>
             ) : null;
     };
 
     render() {
-        const { 
+        const {
             comment,
             created,
             id,
@@ -66,3 +70,5 @@ export default class Post extends Component {
         );
     }
 }
+
+export default Post;

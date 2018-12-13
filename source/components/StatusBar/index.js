@@ -12,7 +12,7 @@ import Styles from './styles.m.css';
 import { socket } from 'socket/init';
 
 @withProfile
-export default class StatusBar extends Component {
+class StatusBar extends Component {
     state = {
         online: false,
     };
@@ -31,7 +31,7 @@ export default class StatusBar extends Component {
         });
     }
 
-    componentWillMount () {
+    componentWillUnmount () {
         socket.removeListener('connect');
         socket.removeListener('disconnect');
     }
@@ -41,21 +41,21 @@ export default class StatusBar extends Component {
             statusBar,
             1,
             { opacity: 0, y: -50 },
-            { opacity: 1, y: 0 }
+            { opacity: 1, y: 0 },
         );
     };
 
-     render() {
+    render() {
         const {
             avatar,
             currentUserFirstName,
-            currentUserLastName
+            currentUserLastName,
         } = this.props;
         const { online } = this.state;
 
         const statusStyle = cx(Styles.status, {
-            [Styles.online]: online,
-            [Styles.offline]: !online,
+            [ Styles.online ]:  online,
+            [ Styles.offline ]: !online,
         });
 
         const statusMessage = online ? 'Online' : 'Offline';
@@ -82,3 +82,5 @@ export default class StatusBar extends Component {
         );
     }
 }
+
+export default StatusBar;

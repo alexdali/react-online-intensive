@@ -10,7 +10,7 @@ import Styles from './styles.m.css';
 import { withProfile } from 'components/HOC/withProfile';
 
 @withProfile
-export default class Like extends Component {
+class Like extends Component {
     static propTypes = {
         _likePost: func.isRequired,
         id:        string.isRequired,
@@ -41,7 +41,7 @@ export default class Like extends Component {
 
     _likePost = () => {
         const { _likePost, id } = this.props;
-        
+
         _likePost(id);
     }
 
@@ -67,11 +67,11 @@ export default class Like extends Component {
     _getLikersList = () => {
         const { showLikers } = this.state;
         const { likes } = this.props;
-        
+
         const likesJSX = likes.map(({ firstName, lastName, id }) => (
             <li key =  { id }>{`${firstName} ${lastName}`}</li>
         ));
-        
+
         return likes.length && showLikers ? <ul>{likesJSX}</ul> : null;
     }
 
@@ -112,6 +112,8 @@ export default class Like extends Component {
                 </div>
             </section>
         );
-    }    
+    }
 }
+
+export default Like;
 

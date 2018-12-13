@@ -11,6 +11,7 @@ import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 import Postman from 'components/Postman';
+import Counter from 'components/Counter';
 
 // Instruments
 import Styles from './styles.m.css';
@@ -18,9 +19,9 @@ import { api, TOKEN, GROUP_ID } from 'config/api';
 import { socket } from 'socket/init';
 
 @withProfile
-export default class Feed extends Component {
+class Feed extends Component {
     state = {
-        posts: [],
+        posts:      [],
         isSpinning: false,
     };
 
@@ -35,7 +36,7 @@ export default class Feed extends Component {
 
             if (
                 `${currentUserFirstName} ${currentUserLastName}`
-                !==`${meta.authorFirstName} ${meta.authorLastName}`
+                !== `${meta.authorFirstName} ${meta.authorLastName}`
             ) {
                 this.setState(({ posts }) => ({
                     posts: [ createdPost, ...posts ],
@@ -48,7 +49,7 @@ export default class Feed extends Component {
 
             if (
                 `${currentUserFirstName} ${currentUserLastName}`
-                !==`${meta.authorFirstName} ${meta.authorLastName}`
+                !== `${meta.authorFirstName} ${meta.authorLastName}`
             ) {
                 this.setState(({ posts }) => ({
                     posts: posts.filter((post) => post.id !== removedPost.id),
@@ -61,18 +62,18 @@ export default class Feed extends Component {
 
             if (
                 `${currentUserFirstName} ${currentUserLastName}`
-                !==`${meta.authorFirstName} ${meta.authorLastName}`
+                !== `${meta.authorFirstName} ${meta.authorLastName}`
             ) {
                 this.setState(({ posts }) => ({
                     posts: posts.map((post) => {
-                        return post.id === likedPost.id ? likedPost : post; 
+                        return post.id === likedPost.id ? likedPost : post;
                     }),
                 }));
             }
         });
     }
 
-    componentWillMount () {
+    componentWillUnmount () {
         socket.removeListener('create');
         socket.removeListener('remove');
         socket.removeListener('like');
@@ -103,10 +104,10 @@ export default class Feed extends Component {
         this._setPostsFetchingState(true);
 
         const response = await fetch(api, {
-            method: 'POST',
+            method:  'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: TOKEN,
+                Authorization:  TOKEN,
             },
             body: JSON.stringify({ comment }),
         });
@@ -114,7 +115,7 @@ export default class Feed extends Component {
         const { data: post } = await response.json();
 
         this.setState(({ posts }) => ({
-            posts:           [ post, ...posts ],
+            posts:      [ post, ...posts ],
             isSpinning: false,
         }));
     }
@@ -123,7 +124,7 @@ export default class Feed extends Component {
         this._setPostsFetchingState(true);
 
         const response = await fetch(`${api}/${id}`, {
-            method: 'PUT',
+            method:  'PUT',
             headers: {
                 Authorization: TOKEN,
             },
@@ -133,7 +134,7 @@ export default class Feed extends Component {
 
         this.setState(({ posts }) => ({
             posts: posts.map(
-                (post) => post.id === likedPost.id ? likedPost : post
+                (post) => post.id === likedPost.id ? likedPost : post,
             ),
             isSpinning: false,
         }));
@@ -143,7 +144,7 @@ export default class Feed extends Component {
         this._setPostsFetchingState(true);
 
         await fetch(`${api}/${id}`, {
-            method: 'DELETE',
+            method:  'DELETE',
             headers: {
                 Authorization: TOKEN,
             },
@@ -169,7 +170,7 @@ export default class Feed extends Component {
             postman,
             4,
             { opacity: 1 },
-            { opacity: 1 }
+            { opacity: 1 },
         );
     };
 
@@ -178,7 +179,7 @@ export default class Feed extends Component {
             postman,
             1,
             { opacity: 1, x: 0 },
-            { opacity: 0, x: 250 }
+            { opacity: 0, x: 250 },
         );
     };
 
@@ -187,7 +188,7 @@ export default class Feed extends Component {
             composer,
             1,
             { opacity: 0, rotationX: 50 },
-            { opacity: 1, rotationX: 0 }
+            { opacity: 1, rotationX: 0 },
         );
     };
 
@@ -197,18 +198,17 @@ export default class Feed extends Component {
         const postsJSX = posts.map((post) => {
             return (
                 <CSSTransition
-                    classNames = { {
+                    classNames = {{
                         enter:       Styles.postInStart,
                         enterActive: Styles.postInEnd,
                         exit:        Styles.postOutStart,
                         exitActive:  Styles.postOutEnd,
-                    } }
+                    }}
                     key = { post.id }
-                    timeout = { {
+                    timeout = {{
                         enter: 500,
-                        exit: 400,
-                    } }
-                >
+                        exit:  400,
+                    }}>
                     <Catcher>
                         <Post
                             { ...post }
@@ -229,21 +229,24 @@ export default class Feed extends Component {
                         appear
                         in
                         timeout = { 1000 }
-                        onEnter = { this._animateComposerEnter}>
+                        onEnter = { this._animateComposerEnter }>
                         <Composer _createPost = { this._createPost } />
                     </Transition>
                     <Transition
                         appear
                         in
                         timeout = { 6000 }
-                        onEnter = { this._animatePostmanEnter}
-                        onEntered = { this._animatePostmanEntering}
-                        onEntered = { this._animatePostmanEntered}>
+                        onEnter = { this._animatePostmanEnter }
+                        onEntered = { this._animatePostmanEntered }>
+                        onEntering = { this._animatePostmanEntering }
                         <Postman />
                     </Transition>
+                    <Counter count = { postsJSX.length } />
                     <TransitionGroup>{postsJSX}</TransitionGroup>
                 </section>
             </>
         );
     }
 }
+
+export default Feed;

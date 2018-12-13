@@ -22,11 +22,11 @@ export default class Catcher extends Component {
             error: true,
         });
     }
-    
+
     render () {
         if (this.state.error) {
             return (
-                <section className = {Styles.catcher }>
+                <section className = { Styles.catcher }>
                     <span>A misterious error occured!</span>
                     <p>Our space engineers fixing that already.</p>
                 </section>

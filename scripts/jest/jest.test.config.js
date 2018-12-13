@@ -3,7 +3,7 @@ module.exports = {
     displayName: 'test:unit',
     rootDir:     '../../',
     verbose:     true,
-    notify:      true,
+    notify:      false,
     bail:        false,
     globals:     {
         __DEV__: true,
