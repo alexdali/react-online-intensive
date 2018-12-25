@@ -1,0 +1,99 @@
+.loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    user-select: none;
+
+    & .loginMessage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        width: 200px;
+        height: 40px;
+        border-radius: 7px;
+        color: black;
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    & form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        & input[type='email'],
+        & input[type='password'] {
+            margin-bottom: 14px;
+            width: 230px;
+            height: 40px;
+            border-radius: 7px;
+            outline: 0;
+            border: 0;
+            padding: 5px;
+            font-size: 20px;
+            color: darkslateblue;
+            border: 1px solid;
+            border-color: currentColor;
+            transition: box-shadow 300ms ease-in-out;
+
+            &:focus {
+                box-shadow: 0 0 0 1px currentColor;
+            }
+        }
+
+        & .invalidInput {
+            border-color: crimson !important;
+
+            &:focus {
+                box-shadow: 0 0 0 1px crimson !important;
+            }
+        }
+
+        & label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+
+            & input {
+                margin-right: 10px;
+            }
+
+            & span {
+                font-size: 18px;
+            }
+        }
+
+        & button {
+            background-color: transparent;
+            color: darkslateblue;
+            border: 2px solid currentColor;
+            border-radius: 7px;
+            font-size: 24px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+            min-width: 100px;
+
+            &:hover {
+                box-shadow: 0 0 0 1px currentColor;
+            }
+        }
+
+        & .disabledButton {
+            color: grey;
+
+            &:hover {
+                box-shadow: initial;
+            }
+        }
+    }
+}

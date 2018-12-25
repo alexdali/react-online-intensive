@@ -1,3 +1,6 @@
+// Core
+import { object, string, boolean } from 'yup';
+
 export const sum = (operand1, operand2) => {
     if (typeof operand1 !== 'number') {
         throw new Error('Operand 1 should be a number.');
@@ -39,4 +42,12 @@ export const getFullApiUrl = (api, GROUP_ID) => {
 
     return `${api}/${GROUP_ID}`;
 };
+
+export const schema = object().shape({
+    email: string()
+        .email()
+        .required(),
+    password: string().required(),
+    remember: boolean(),
+});
 
