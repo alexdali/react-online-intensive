@@ -20,47 +20,8 @@ export class LoginPage extends Component {
         _login: func.isRequired,
     };
 
-    // componentDidMount () {
-    //     // const { _pathState } = this.props;
-
-    //     this._pathState();
-
-    // }
-
-    // _pathState = () => {
-    //     const { _pathState } = this.props;
-
-    //     _pathState(this.props.location.pathname);
-    // }
-
-    // state = {
-    //     isAthenticated: false,
-    // };
-
-    // _login = async (credentials, actions) => {
-    //     //await delay(1000);
-
-    //     console.log('->', JSON.stringify(credentials, null, 4));
-
-    //     await this.setState({
-    //         isAthenticated: true,
-    //     });
-
-    //     // await actions.setSubmitting(false);
-
-    //     // //await delay(5000);
-
-    //     // await this.setState({
-    //     //     isAthenticated: false,
-    //     // });
-    // };
-
-    //<div className = { Styles.loginMessage }>Welcome!</div>
-
     render() {
         const { isAthenticated, _login } = this.props;
-
-        console.log('LoginPage this.props.isAthenticated: ', isAthenticated);
 
         return (
             <section className = { Styles.loginPage }>

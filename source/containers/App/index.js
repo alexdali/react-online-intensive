@@ -16,12 +16,6 @@ import { Provider } from 'components/HOC/withProfile';
 
 const avatar = 'https://image.freepik.com/free-vector/moustache-man-cartoon-vector_17-1018103121.jpg'
 
-// const  options = {
-//     avatar,
-//     currentUserFirstName: 'Алексей',
-//     currentUserLastName:  'Тасбауов',
-// };
-
 @hot(module)
 class App extends Component {
     constructor(props) {
@@ -32,28 +26,17 @@ class App extends Component {
             currentUserFirstName: 'Алексей',
             currentUserLastName:  'Тасбауов',
             isAthenticated:       false,
-            //pathRoute:            '',
             _logout:              this._logout,
             isUserStored:         false,
         };
     }
 
     componentDidMount () {
-        console.log('componentDidMount');
         this._checkStore();
-        // const { isAthenticated } = this.state;
-
-        // if (!isAthenticated) {
-
-        //     const userStored = JSON.parse(localStorage.getItem('user'));
-
-        //     this._login(userStored);
-        // }
-
     }
 
     _login = (credentials) => {
-        console.log('_login->', JSON.stringify(credentials, null, 4));
+        //console.log('_login->', JSON.stringify(credentials, null, 4));
 
         if (credentials.remember) {
             localStorage.setItem('user', JSON.stringify(credentials));
@@ -76,34 +59,19 @@ class App extends Component {
         });
     };
 
-    // _pathState = (path) => {
-    //     console.log('path: ', path);
-
-    //     this.setState({
-    //         pathRoute: path,
-    //     });
-    // };
-
     _checkStore = () => {
         const { isAthenticated } = this.state;
 
         if (!isAthenticated) {
-
             const userStored = JSON.parse(localStorage.getItem('user'));
-            console.log('userStored: ', userStored);
+
             userStored && this._login(userStored);
         }
     };
 
     render() {
         const { isAthenticated, isUserStored } = this.state;
-        //const { pathRoute } = this.state;
 
-        console.log('this.props.location.pathname: ', this.props);
-        //console.log('this.state.pathRoute: ', pathRoute);
-        console.log('this.state.isAthenticated: ', isAthenticated);
-        console.log('this.state.isUserStored: ', isUserStored);
-       
         return (
             <Catcher>
                 <Provider value = { this.state }>
