@@ -11,6 +11,7 @@ import Styles from './styles.m.css';
 class Profile extends Component {
     render() {
         const { currentUserFirstName, currentUserLastName, avatar } = this.props;
+        console.log('this.props.location.pathname: ', this.props.location.pathname);
 
         return (
             <section className = { Styles.profile }>

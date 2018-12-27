@@ -46,10 +46,17 @@ class StatusBar extends Component {
         );
     };
 
+    _logout = () => {
+        // const { _logout } = 
+
+        this.props._logout();
+    }
+
     render() {
         const {
             avatar,
             currentUserFirstName,
+            _logout,
         } = this.props;
         const { online } = this.state;
 
@@ -59,7 +66,8 @@ class StatusBar extends Component {
         });
 
         const statusMessage = online ? 'Online' : 'Offline';
-
+        console.log(this.props);
+        
         return (
             <Transition
                 appear
@@ -76,6 +84,7 @@ class StatusBar extends Component {
                         <span>{ currentUserFirstName }</span>
                     </Link>
                     <Link to = '/feed'>Feed</Link>
+                    <button onClick = { this._logout } >Sign out</button>
                 </section>
             </Transition>
         );

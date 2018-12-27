@@ -70,6 +70,8 @@ class Feed extends Component {
                 }));
             }
         });
+
+       // this._pathState();
     }
 
     componentWillUnmount () {
@@ -77,6 +79,14 @@ class Feed extends Component {
         socket.removeListener('remove');
         socket.removeListener('like');
     }
+
+
+
+    // _pathState = () => {
+    //     const { _pathState } = this.props;
+
+    //     _pathState(this.props.location.pathname);
+    // }
 
     _setPostsFetchingState = (state) => {
         this.setState({
@@ -218,6 +228,8 @@ class Feed extends Component {
                 </CSSTransition>
             );
         });
+
+        console.log('this.props.location.pathname: ', this.props.location.pathname);
 
         return (
             <>
