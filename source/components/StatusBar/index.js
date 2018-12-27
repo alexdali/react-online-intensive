@@ -52,19 +52,19 @@ class StatusBar extends Component {
         this.props._logout();
     }
 
-    _getlogout= () => {
-        const { isAthenticated } = this.props;
+    // _getlogout= () => {
+    //     const { isAthenticated } = this.props;
 
-        return isAthenticated
-            ? (
-                //<button onClick = { this._logout } >Sign out</button>
-                <div
-                    className = { Styles.logout }
-                    onClick = { this._logout }>
-                    Sign out
-                </div>
-            ) : null;
-    };
+    //     return isAthenticated
+    //         ? (
+    //             //<button onClick = { this._logout } >Sign out</button>
+    //             <div
+    //                 className = { Styles.logout }
+    //                 onClick = { this._logout }>
+    //                 Sign out
+    //             </div>
+    //         ) : null;
+    // };
 
     render() {
         const {
@@ -73,7 +73,7 @@ class StatusBar extends Component {
             _logout,
         } = this.props;
         const { online } = this.state;
-        const { isAthenticated, _login } = this.props;
+        const { isAthenticated } = this.props;
 
         console.log('StatusBar this.props.isAthenticated: ', isAthenticated);
 
@@ -84,7 +84,7 @@ class StatusBar extends Component {
 
         const statusMessage = online ? 'Online' : 'Offline';
         //console.log(this.props);
-        const logout = this._getlogout();
+        //const logout = this._getlogout();
 
         return (
             <Transition
@@ -97,12 +97,20 @@ class StatusBar extends Component {
                         <div>{statusMessage}</div>
                         <span />
                     </div>
-                    <Link to = '/profile'>
-                        <img src = { avatar }/>
-                        <span>{ currentUserFirstName }</span>
-                    </Link>
-                    <Link to = '/feed'>Feed</Link>
-                    {logout}
+                    { isAthenticated &&
+                            <>
+                                <Link to = '/profile'>
+                                    <img src = { avatar }/>
+                                    <span>{ currentUserFirstName }</span>
+                                </Link>
+                                <Link to = '/feed'>Feed</Link>
+                                <div
+                                    className = { Styles.logout }
+                                    onClick = { this._logout }>
+                                    Sign out
+                                </div>
+                            </>
+                    }
                 </section>
             </Transition>
         );
