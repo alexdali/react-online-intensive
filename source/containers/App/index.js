@@ -32,7 +32,7 @@ class App extends Component {
             currentUserFirstName: 'Алексей',
             currentUserLastName:  'Тасбауов',
             isAthenticated:       false,
-            pathRoute:            '',
+            //pathRoute:            '',
             _logout:              this._logout,
             isUserStored:         false,
         };
@@ -97,10 +97,10 @@ class App extends Component {
 
     render() {
         const { isAthenticated, isUserStored } = this.state;
-        const { pathRoute } = this.state;
+        //const { pathRoute } = this.state;
 
         console.log('this.props.location.pathname: ', this.props);
-        console.log('this.state.pathRoute: ', pathRoute);
+        //console.log('this.state.pathRoute: ', pathRoute);
         console.log('this.state.isAthenticated: ', isAthenticated);
         console.log('this.state.isUserStored: ', isUserStored);
        

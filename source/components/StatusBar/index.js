@@ -52,6 +52,20 @@ class StatusBar extends Component {
         this.props._logout();
     }
 
+    _getlogout= () => {
+        const { isAthenticated } = this.props;
+
+        return isAthenticated
+            ? (
+                //<button onClick = { this._logout } >Sign out</button>
+                <div
+                    className = { Styles.logout }
+                    onClick = { this._logout }>
+                    Sign out
+                </div>
+            ) : null;
+    };
+
     render() {
         const {
             avatar,
@@ -59,6 +73,9 @@ class StatusBar extends Component {
             _logout,
         } = this.props;
         const { online } = this.state;
+        const { isAthenticated, _login } = this.props;
+
+        console.log('StatusBar this.props.isAthenticated: ', isAthenticated);
 
         const statusStyle = cx(Styles.status, {
             [ Styles.online ]:  online,
@@ -67,6 +84,7 @@ class StatusBar extends Component {
 
         const statusMessage = online ? 'Online' : 'Offline';
         //console.log(this.props);
+        const logout = this._getlogout();
 
         return (
             <Transition
@@ -84,7 +102,7 @@ class StatusBar extends Component {
                         <span>{ currentUserFirstName }</span>
                     </Link>
                     <Link to = '/feed'>Feed</Link>
-                    <button onClick = { this._logout } >Sign out</button>
+                    {logout}
                 </section>
             </Transition>
         );
