@@ -39,19 +39,21 @@ class App extends Component {
     }
 
     componentDidMount () {
-        const { isAthenticated } = this.state;
+        console.log('componentDidMount');
+        this._checkStore();
+        // const { isAthenticated } = this.state;
 
-        if (!isAthenticated) {
+        // if (!isAthenticated) {
 
-            const userStored = JSON.parse(localStorage.getItem('user'));
+        //     const userStored = JSON.parse(localStorage.getItem('user'));
 
-            this._login(userStored);
-        }
+        //     this._login(userStored);
+        // }
 
     }
 
     _login = (credentials) => {
-        console.log('->', JSON.stringify(credentials, null, 4));
+        console.log('_login->', JSON.stringify(credentials, null, 4));
 
         if (credentials.remember) {
             localStorage.setItem('user', JSON.stringify(credentials));
@@ -81,16 +83,17 @@ class App extends Component {
     //         pathRoute: path,
     //     });
     // };
-    // _checkStore = () => {
-    //     const { isAthenticated, isUserStored } = this.state;
-    //     if (isUserStored && !isAthenticated) {
-    //         const userStored = localStorage.getItem('user', JSON.stringify(credentials));
-            
-    //         console.log('->', JSON.stringify(userStored, null, 4));
 
-    //         this._login(userStored);
-    //     }
-    // }
+    _checkStore = () => {
+        const { isAthenticated } = this.state;
+
+        if (!isAthenticated) {
+
+            const userStored = JSON.parse(localStorage.getItem('user'));
+            console.log('userStored: ', userStored);
+            userStored && this._login(userStored);
+        }
+    };
 
     render() {
         const { isAthenticated, isUserStored } = this.state;
