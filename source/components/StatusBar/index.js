@@ -66,8 +66,8 @@ class StatusBar extends Component {
         });
 
         const statusMessage = online ? 'Online' : 'Offline';
-        console.log(this.props);
-        
+        //console.log(this.props);
+
         return (
             <Transition
                 appear

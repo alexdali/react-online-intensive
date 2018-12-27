@@ -14,11 +14,11 @@ import { Provider } from 'components/HOC/withProfile';
 // Instruments
 import avatar from 'theme/assets/Lisa';
 
-const  options = {
-    avatar,
-    currentUserFirstName: 'Алексей',
-    currentUserLastName:  'Тасбауов',
-};
+// const  options = {
+//     avatar,
+//     currentUserFirstName: 'Алексей',
+//     currentUserLastName:  'Тасбауов',
+// };
 
 @hot(module)
 class App extends Component {
@@ -30,6 +30,7 @@ class App extends Component {
             currentUserFirstName: 'Алексей',
             currentUserLastName:  'Тасбауов',
             isAthenticated:       false,
+            isStored:             false,
             pathRoute:            '',
             _logout:              this._logout,
         };
@@ -38,30 +39,38 @@ class App extends Component {
     _login = (credentials) => {
         console.log('->', JSON.stringify(credentials, null, 4));
 
+        if (credentials.remember) {
+            localStorage.setItem('user', JSON.stringify(credentials));  
+        }
+        //localStorage.setItem('user', JSON.stringify(data));
+
         this.setState({
             isAthenticated: true,
         });
     };
 
     _logout = () => {
+        
+        localStorage.removeItem('user');  
+
         this.setState({
             isAthenticated: false,
         });
     };
 
-    _pathState = (path) => {
-        console.log('path: ', path);
+    // _pathState = (path) => {
+    //     console.log('path: ', path);
 
-        this.setState({
-            pathRoute: path,
-        });
-    };
+    //     this.setState({
+    //         pathRoute: path,
+    //     });
+    // };
 
     render() {
         const { isAthenticated } = this.state;
         const { pathRoute } = this.state;
 
-        console.log('this.props.location.pathname: ', this.props);
+        //console.log('this.props.location.pathname: ', this.props);
         console.log('this.state.pathRoute: ', pathRoute);
         console.log('this.state.isAthenticated: ', isAthenticated);
        
