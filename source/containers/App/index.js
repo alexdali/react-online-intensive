@@ -34,14 +34,30 @@ class App extends Component {
             isAthenticated:       false,
             pathRoute:            '',
             _logout:              this._logout,
+            isUserStored:         false,
         };
+    }
+
+    componentDidMount () {
+        const { isAthenticated } = this.state;
+
+        if (!isAthenticated) {
+
+            const userStored = JSON.parse(localStorage.getItem('user'));
+
+            this._login(userStored);
+        }
+
     }
 
     _login = (credentials) => {
         console.log('->', JSON.stringify(credentials, null, 4));
 
         if (credentials.remember) {
-            localStorage.setItem('user', JSON.stringify(credentials));  
+            localStorage.setItem('user', JSON.stringify(credentials));
+            this.setState({
+                isUserStored: true,
+            });  
         }
 
         this.setState({
@@ -54,6 +70,7 @@ class App extends Component {
 
         this.setState({
             isAthenticated: false,
+            isUserStored:   false,
         });
     };
 
@@ -64,28 +81,26 @@ class App extends Component {
     //         pathRoute: path,
     //     });
     // };
+    // _checkStore = () => {
+    //     const { isAthenticated, isUserStored } = this.state;
+    //     if (isUserStored && !isAthenticated) {
+    //         const userStored = localStorage.getItem('user', JSON.stringify(credentials));
+            
+    //         console.log('->', JSON.stringify(userStored, null, 4));
+
+    //         this._login(userStored);
+    //     }
+    // }
 
     render() {
-        const { isAthenticated } = this.state;
+        const { isAthenticated, isUserStored } = this.state;
         const { pathRoute } = this.state;
 
         console.log('this.props.location.pathname: ', this.props);
         console.log('this.state.pathRoute: ', pathRoute);
         console.log('this.state.isAthenticated: ', isAthenticated);
+        console.log('this.state.isUserStored: ', isUserStored);
        
-        // const PrivateRoute = ({ component: Component, ...rest }) => (
-        //     <Route {...rest} render={props => (
-        //       isAthenticated ? (
-        //         <Component {...props}/>
-        //       ) : (
-        //         <Redirect to={{
-        //           pathname: '/login',
-        //           state: { from: props.location }
-        //         }}/>
-        //       )
-        //     )}/>
-        //   );
-            
         return (
             <Catcher>
                 <Provider value = { this.state }>
