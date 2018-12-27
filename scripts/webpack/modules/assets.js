@@ -82,7 +82,7 @@ export const connectHtml = () => ({
         new HtmlWebpackPlugin({
             title:    'Lectrum Education',
             template: `${STATIC}/template.html`,
-            favicon:  `${STATIC}/favicon/lectrum-favicon-512x512.png`,
+            //favicon:  `${STATIC}/favicon/lectrum-favicon-512x512.png`,
         }),
     ],
 });
