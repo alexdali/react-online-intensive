@@ -40,24 +40,30 @@ class App extends Component {
     _login = (credentials) => {
         console.log('->', JSON.stringify(credentials, null, 4));
 
+        if (credentials.remember) {
+            localStorage.setItem('user', JSON.stringify(credentials));  
+        }
+
         this.setState({
             isAthenticated: true,
         });
     };
 
     _logout = () => {
+        localStorage.removeItem('user');  
+
         this.setState({
             isAthenticated: false,
         });
     };
 
-    _pathState = (path) => {
-        console.log('path: ', path);
+    // _pathState = (path) => {
+    //     console.log('path: ', path);
 
-        this.setState({
-            pathRoute: path,
-        });
-    };
+    //     this.setState({
+    //         pathRoute: path,
+    //     });
+    // };
 
     render() {
         const { isAthenticated } = this.state;
